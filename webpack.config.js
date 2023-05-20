@@ -31,5 +31,7 @@ module.exports = {
       directory: path.join(__dirname, "build"),
     },
     port: 3000,
+    // Allow all Code Sandbox preview domains
+    allowedHosts: [".csb.app"],
   },
 };
