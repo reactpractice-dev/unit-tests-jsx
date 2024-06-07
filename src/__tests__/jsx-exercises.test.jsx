@@ -12,7 +12,9 @@ describe("JSX Practice exercises", () => {
     test("hello john doe", () => {
       const name = "John Doe";
 
-      const HelloWorld = () => null;
+      const HelloWorld = () => {
+        return `Hello, ${name}`;
+      }
 
       render(<HelloWorld />);
       expect(screen.getByText(/Hello, John Doe/)).toBeInTheDocument();
@@ -27,7 +29,9 @@ describe("JSX Practice exercises", () => {
     test("profile image 1", () => {
       const imagePath = "https://placekitten.com/200/300";
 
-      const ProfileImage = () => null;
+      const ProfileImage = () => {
+        return <img src={imagePath} alt="" />
+      };
 
       render(<ProfileImage />);
       expect(screen.getByRole("img")).toHaveAttribute("src", imagePath);
@@ -40,7 +44,9 @@ describe("JSX Practice exercises", () => {
     test("profile image 2", () => {
       const html = `<img src="https://placekitten.com/200/300" style="border: 1px solid blue;" />`;
 
-      const ProfileImage = () => null;
+      const ProfileImage = () => {
+        return <div dangerouslySetInnerHTML={{ __html: html }} />
+      };
 
       render(<ProfileImage />);
       expect(screen.getByRole("img")).toHaveAttribute(
@@ -62,7 +68,14 @@ describe("JSX Practice exercises", () => {
         image: "https://placekitten.com/200/300",
       };
 
-      const Avatar = () => null;
+      const Avatar = () => {
+        return (
+          <div role="heading">
+            { character.name }
+            <img src={character.image} alt={character.name} />
+          </div>
+        );
+      };
 
       render(<Avatar />);
       expect(screen.getByRole("heading")).toHaveTextContent(character.name);
