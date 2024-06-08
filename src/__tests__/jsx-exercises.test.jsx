@@ -45,7 +45,10 @@ describe("JSX Practice exercises", () => {
       const html = `<img src="https://placekitten.com/200/300" style="border: 1px solid blue;" />`;
 
       const ProfileImage = () => {
-        return <div dangerouslySetInnerHTML={{ __html: html }} />
+        // return <div dangerouslySetInnerHTML={{ __html: html }} />
+        return (
+          <img src="https://placekitten.com/200/300" style={{ border: '1px solid blue' }} />
+        )
       };
 
       render(<ProfileImage />);
@@ -70,10 +73,14 @@ describe("JSX Practice exercises", () => {
 
       const Avatar = () => {
         return (
-          <div role="heading">
+          // <div role="heading">
+          //   { character.name }
+          //   <img src={character.image} alt={character.name} />
+          // </div>
+          <h1>
             { character.name }
             <img src={character.image} alt={character.name} />
-          </div>
+          </h1>
         );
       };
 
@@ -147,8 +154,14 @@ describe("JSX Practice exercises", () => {
       const LearnReactSection = () => {
         return (
           <div>
-            <h1 role="heading">Learn React</h1>
+            {/* <h1 role="heading">Learn React</h1>
             <ul role="list">
+              <li>Describing the UI</li>
+              <li>Adding interactivity</li>
+              <li>Managing state</li>
+            </ul> */}
+            <h1>Learn React</h1>
+            <ul>
               <li>Describing the UI</li>
               <li>Adding interactivity</li>
               <li>Managing state</li>
@@ -179,7 +192,8 @@ describe("JSX Practice exercises", () => {
       const Profile = () => {
         return (
           <div>
-              <h1 role="heading">John Doe</h1>
+              {/* <h1 role="heading">John Doe</h1> */}
+              <h1>John Doe</h1>
               <img src="https://placekitten.com/200/300" />
           </div>
         )
@@ -201,10 +215,14 @@ describe("JSX Practice exercises", () => {
       `;
       const Profile = () => {
         return (
-          <div>
+          // <div>
+          //     <h1 role="heading">John Doe</h1>
+          //     <img src="https://placekitten.com/200/300" />
+          // </div>
+          <>
               <h1 role="heading">John Doe</h1>
               <img src="https://placekitten.com/200/300" />
-          </div>
+          </>
         )
       };
 
