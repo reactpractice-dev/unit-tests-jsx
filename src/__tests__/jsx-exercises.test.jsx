@@ -94,7 +94,7 @@ describe("JSX Practice exercises", () => {
       const price = 12;
 
       const ProductPrice = () => {
-        return <p>Price: {price}</p>;
+        return <p>Price: {price.toFixed(2)}</p>;
       };
 
       render(<ProductPrice />);
@@ -112,9 +112,12 @@ describe("JSX Practice exercises", () => {
     test("format date - day of week", () => {
       // Date react was launched: May 29, 2013
       const reactLaunchDate = new Date("2013-05-29");
+      const dateFormat = new Intl.DateTimeFormat('en-us', {
+        weekday: 'long',
+      });
 
       const HelloWorld = () => {
-        return <p>React was launched on {reactLaunchDate.toString()}</p>;
+        return <p>React was launched on a {dateFormat.format(reactLaunchDate)}</p>;
       };
 
       render(<HelloWorld />);
@@ -139,9 +142,20 @@ describe("JSX Practice exercises", () => {
                   <li>Managing state
               </ul>
           </div>
-  `;
+      `;
 
-      const LearnReactSection = () => null;
+      const LearnReactSection = () => {
+        return (
+          <div>
+            <h1 role="heading">Learn React</h1>
+            <ul role="list">
+              <li>Describing the UI</li>
+              <li>Adding interactivity</li>
+              <li>Managing state</li>
+            </ul>
+          </div>
+        )
+      };
 
       render(<LearnReactSection />);
       expect(screen.getByRole("heading")).toHaveTextContent(/Learn React/);
@@ -160,9 +174,16 @@ describe("JSX Practice exercises", () => {
           <h1>John Doe</h1>
           <img src="https://placekitten.com/200/300">
       </div>
-  `;
+    `;
 
-      const Profile = () => null;
+      const Profile = () => {
+        return (
+          <div>
+              <h1 role="heading">John Doe</h1>
+              <img src="https://placekitten.com/200/300" />
+          </div>
+        )
+      };
 
       render(<Profile />);
       expect(screen.getByRole("heading")).toHaveTextContent(/John Doe/);
@@ -178,7 +199,14 @@ describe("JSX Practice exercises", () => {
           <h1>John Doe</h1>
           <img src="https://placekitten.com/200/300"/>
       `;
-      const Profile = () => null;
+      const Profile = () => {
+        return (
+          <div>
+              <h1 role="heading">John Doe</h1>
+              <img src="https://placekitten.com/200/300" />
+          </div>
+        )
+      };
 
       render(<Profile />);
       expect(screen.getByRole("heading")).toHaveTextContent(/John Doe/);
@@ -192,7 +220,11 @@ describe("JSX Practice exercises", () => {
     test("profile image 1", () => {
       const html = `<img src="https://placekitten.com/200/300" class="photo" />`;
 
-      const ProfileImage = () => null;
+      const ProfileImage = () => {
+        return (
+          <img src="https://placekitten.com/200/300" className="photo" />
+        )
+      };
 
       render(<ProfileImage />);
       expect(screen.getByRole("img")).toHaveAttribute("class", "photo");
@@ -205,7 +237,11 @@ describe("JSX Practice exercises", () => {
     test("customer card", () => {
       const html = `<section data-testid="blueberry"><h1>BlueBerry INC</h1></section>`;
 
-      const CustomerCard = () => null;
+      const CustomerCard = () => {
+        return (
+          <section data-testid="blueberry"><h1>BlueBerry INC</h1></section>
+        )
+      };
 
       render(<CustomerCard />);
       expect(screen.getByTestId("blueberry")).toBeInTheDocument();
@@ -218,7 +254,11 @@ describe("JSX Practice exercises", () => {
     test("profile image 2", () => {
       const html = `<img src="https://placekitten.com/200/300" style="border-color: red;" />`;
 
-      const ProfileImage = () => null;
+      const ProfileImage = () => {
+        return (
+          <img src="https://placekitten.com/200/300" style={{ borderColor: 'red' }} />
+        )
+      };
 
       render(<ProfileImage />);
       expect(screen.getByRole("img")).toHaveAttribute(
