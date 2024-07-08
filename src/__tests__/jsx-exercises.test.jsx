@@ -12,9 +12,17 @@ describe("JSX Practice exercises", () => {
     test("hello john doe", () => {
       const name = "John Doe";
 
-      const HelloWorld = () => null;
+      const HelloWorldd = ({ person}) => {
+        return (
+          <h1>Hello, {person.name}</h1>
+        );
+      }
 
-      render(<HelloWorld />);
+      render(<HelloWorldd
+        person={{ 
+          name: name, 
+        }}
+      />);
       expect(screen.getByText(/Hello, John Doe/)).toBeInTheDocument();
     });
 
@@ -25,11 +33,22 @@ describe("JSX Practice exercises", () => {
      * Read the image path from the `imagePath` variable
      */
     test("profile image 1", () => {
-      const imagePath = "https://placekitten.com/200/300";
+      const imagePath = "https://media-assets.swiggy.com/siggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/6ef07bda-b707-48ea-9b14-2594071593d1_North%20Indian.png";
 
-      const ProfileImage = () => null;
+      const ProfileImagebyme = ({person}) => {
+        return(
+        <img
+        src = {person.imgpath}
+        alt= "image"
+        style={{
+            border: person.styborder
+        }}/>
+    )
+    }
 
-      render(<ProfileImage />);
+      render(<ProfileImagebyme person={{ 
+          imgpath: imagePath, 
+        }}/>);
       expect(screen.getByRole("img")).toHaveAttribute("src", imagePath);
     });
 
@@ -39,10 +58,24 @@ describe("JSX Practice exercises", () => {
      */
     test("profile image 2", () => {
       const html = `<img src="https://placekitten.com/200/300" style="border: 1px solid blue;" />`;
+      const imagePath = "https://placekitten.com/200/300";
+      const styborder = "1px solid blue";
+      const ProfileImagebyme = ({person}) => {
+        return(
+        <img
+        src = {person.imgpath}
+        alt= "image"
+        style={{
+            border: person.styborder
+        }}/>
+    )
+    }
 
-      const ProfileImage = () => null;
-
-      render(<ProfileImage />);
+      render(<ProfileImagebyme 
+        person={{ 
+          imgpath: imagePath,
+          styborder: styborder, 
+        }}/>);
       expect(screen.getByRole("img")).toHaveAttribute(
         "style",
         "border: 1px solid blue;"
@@ -62,9 +95,27 @@ describe("JSX Practice exercises", () => {
         image: "https://placekitten.com/200/300",
       };
 
-      const Avatar = () => null;
+      const Avatarbyme = ({person}) => {
+        return(
+            <div>
+                <h1>{
+                person.name
+            }</h1>
+            <img
+            src = {person.imgpath}
+            alt= {person.name}
+            />
+                </div>
+            
+            
+        );
+    }
 
-      render(<Avatar />);
+      render(<Avatarbyme 
+        person={{
+          name: character.name,
+          imgpath: character.image,
+        }} />);
       expect(screen.getByRole("heading")).toHaveTextContent(character.name);
       expect(screen.getByRole("img")).toHaveAccessibleName(character.name);
       expect(screen.getByRole("img")).toHaveAttribute("src", character.image);
@@ -80,11 +131,11 @@ describe("JSX Practice exercises", () => {
     test("format number", () => {
       const price = 12;
 
-      const ProductPrice = () => {
-        return <p>Price: {price}</p>;
+      const ProductPrice = ({person}) => {
+        return <p>Price: {(person.price).toFixed(2)}</p>;
       };
 
-      render(<ProductPrice />);
+      render(<ProductPrice person = {{price : price}} />);
       expect(screen.getByText(/Price: 12.00/)).toBeInTheDocument();
     });
 
@@ -99,12 +150,13 @@ describe("JSX Practice exercises", () => {
     test("format date - day of week", () => {
       // Date react was launched: May 29, 2013
       const reactLaunchDate = new Date("2013-05-29");
+      var daylist = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-      const HelloWorld = () => {
-        return <p>React was launched on {reactLaunchDate.toString()}</p>;
+      const HelloWorld = ({person}) => {
+        return <p>React was launched on a {daylist[person.reactLaunchDate.getDay()]}</p>;
       };
 
-      render(<HelloWorld />);
+      render(<HelloWorld person={{reactLaunchDate:reactLaunchDate}}/>);
       expect(
         screen.getByText(/React was launched on a Wednesday/)
       ).toBeInTheDocument();
@@ -128,7 +180,18 @@ describe("JSX Practice exercises", () => {
           </div>
   `;
 
-      const LearnReactSection = () => null;
+      const LearnReactSection = () => {
+        return(
+          <div>
+              <h1>Learn React</h1>
+              <ul>
+                  <li>Describing the UI</li>
+                  <li>Adding interactivity</li>
+                  <li>Managing state</li>
+              </ul>
+          </div>
+        )
+      };
 
       render(<LearnReactSection />);
       expect(screen.getByRole("heading")).toHaveTextContent(/Learn React/);
@@ -149,7 +212,14 @@ describe("JSX Practice exercises", () => {
       </div>
   `;
 
-      const Profile = () => null;
+      const Profile = () => {
+        return(
+          <div>
+          <h1>John Doe</h1>
+          <img src="https://placekitten.com/200/300"/>
+      </div>
+        )
+      };
 
       render(<Profile />);
       expect(screen.getByRole("heading")).toHaveTextContent(/John Doe/);
@@ -165,7 +235,14 @@ describe("JSX Practice exercises", () => {
           <h1>John Doe</h1>
           <img src="https://placekitten.com/200/300"/>
       `;
-      const Profile = () => null;
+      const Profile = () => {
+        return(
+          <div>
+          <h1>John Doe</h1>
+          <img src="https://placekitten.com/200/300"/>
+          </div>
+        )
+      };
 
       render(<Profile />);
       expect(screen.getByRole("heading")).toHaveTextContent(/John Doe/);
@@ -179,7 +256,16 @@ describe("JSX Practice exercises", () => {
     test("profile image 1", () => {
       const html = `<img src="https://placekitten.com/200/300" class="photo" />`;
 
-      const ProfileImage = () => null;
+      const ProfileImage = () => {
+        return(
+          <div>
+          <img
+          src = "https://placekitten.com/200/300"
+          className = "photo"
+          />
+          </div>
+        )
+      };
 
       render(<ProfileImage />);
       expect(screen.getByRole("img")).toHaveAttribute("class", "photo");
@@ -192,7 +278,11 @@ describe("JSX Practice exercises", () => {
     test("customer card", () => {
       const html = `<section data-testid="blueberry"><h1>BlueBerry INC</h1></section>`;
 
-      const CustomerCard = () => null;
+      const CustomerCard = () => {
+        return(
+          <section data-testid="blueberry"><h1>BlueBerry INC</h1></section>
+        )
+      };
 
       render(<CustomerCard />);
       expect(screen.getByTestId("blueberry")).toBeInTheDocument();
@@ -204,10 +294,16 @@ describe("JSX Practice exercises", () => {
      */
     test("profile image 2", () => {
       const html = `<img src="https://placekitten.com/200/300" style="border-color: red;" />`;
+      const ProfileImagee = ({person}) => {
+        return(
+          <img 
+      src="https://placekitten.com/200/300" 
+      style={{ borderColor: 'red' }} 
+    />
+        )
+      };
 
-      const ProfileImage = () => null;
-
-      render(<ProfileImage />);
+      render(<ProfileImagee />);
       expect(screen.getByRole("img")).toHaveAttribute(
         "style",
         "border-color: red;"
